@@ -4,20 +4,20 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-names = ['rssi1', 'rssi2', 'rssi3', 'class']
-data_set = pd.read_csv("C:/Thesis/data/result-excel.csv", names=names)
+names = ['rssi1', 'rssi2', 'rssi3','class']
+data_set = pd.read_csv("C:/Thesis/data/default_last (1).csv", names=names)
 print(data_set.head())
 
 x = data_set.iloc[:, :-1].values
 y = data_set.iloc[:, 3].values
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10)
 scaler = StandardScaler()
 scaler.fit(x_train)
 x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
-classfier = KNeighborsClassifier(n_neighbors=7)
+classfier = KNeighborsClassifier()
 classfier.fit(x_train, y_train)
 
 y_pred = classfier.predict(x_test)
